@@ -1,4 +1,5 @@
 var g;
+var mouseX = 0, mouseY = 0;
 
 var p = {
 	x: 200,
@@ -13,6 +14,8 @@ var init = function() {
 };
 
 var update = function() {
+  p.x = mouseX //- p.x;
+  p.y = mouseY //- p.y;
 };
 
 var draw = function() {
@@ -30,4 +33,10 @@ var loop = function() {
 	requestAnimationFrame(loop);
 };
 
+var mousemove = function(e) {
+  mouseX = e.pageX;
+  mouseY = e.pageY;
+};
+
 window.onload = init;
+window.onmousemove = mousemove;
