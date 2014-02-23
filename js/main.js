@@ -1,5 +1,9 @@
 var g;
 var mouseX = 0, mouseY = 0;
+var ac = new webkitAudioContext();
+var osc = ac.createOscillator();
+osc.connect(ac.destination);
+osc.start(0);
 
 var p = {
   x: 200,
@@ -22,14 +26,17 @@ var update = function() {
   p.ay = mouseY - p.y;
   p.vx += p.ax * 0.1;
   p.vy += p.ay * 0.1;
-  p.x += p.vx * 0.1;
-  p.y += p.vy * 0.1;
+  p.x += p.vx * 0.5;
+  p.y += p.vy * 0.5;
   p.vx *= 0.8;
   p.vy *= 0.8;
+
+  var v = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+  osc.frequency.value = 440 * v * 0.1;
 };
 
 var draw = function() {
-	g.clearRect(0, 0, g.canvas.width, g.canvas.height);
+	//g.clearRect(0, 0, g.canvas.width, g.canvas.height);
 	g.fillStyle = 'rgba(0, 0, 0, 0.2)';
 	g.beginPath();
 	var radius = 5;
